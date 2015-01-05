@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AmEx Assessment Day Coding Pre-Work</title>
+    <link rel="stylesheet" href="AmExStyle.css">
+    <link rel="stylesheet" href="ButtonPictogram/ButtonPictogram/style/pictogram-button.css">
+</head>
+
+<body>
+    <div class="wrapper">
+    <div class="header">
+        <img src="AmEx_Logo.jpg" style="width:80px; height:80px; float:left;">
+        <h1>AmEx Assessment Day Coding Pre-Work</h1>
+    </div>
+    <div class="content">
+            <h2>Enter up to 10 letters: </h2><input class="textbox" type="text" name="tenLetters" id="ten" maxlength="10" autofocus>
+            <a class="button-bevel black" onclick="calculate()">
+            <span class="cloud"></span> Calculate
+            </a>
+        <br>
+        <table>
+            <tr>
+                <td><p style="float:left;">Input: </p> <p id="input"></p></td>
+                <td><p style="float:left;">Valid: </p> <p id="valid"></p></td>
+            </tr>
+            <tr>
+                <td><p style="float:left;">Sum: </p> <p id="total"></p></td>
+                <td><p style="float:left;">Prime:</p> <p id="prime"></p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <p>Connor Williams</p>
+    </div>
+    </div>
+</body>
+
+<script>
+function calculate() {
+    // Get the input string
+    var input = document.getElementById("ten").value;
+    var regEx = /^[a-zA-Z]+$/;
+
+    document.getElementById("input").innerHTML = input;
+    // Check if input is empty
+    if (input) {
+        //Check input string is valid
+        if (input.match(regEx))
+        {
+            document.getElementById("valid").innerHTML = "<img src='tick.png' style='width:20px; height:20px; padding-left:10px; float:left;'>";
+            var total = 0;
+            var sum = "";
+            for (var i = 0; i < input.length; i++)
+            {
+                var number = mapToNumber(input[i].toLowerCase());
+                sum = sum.concat(number.toString(),"+");
+                total = total + number;
+            }
+            //sum.splice(sum.lastIndexOf("+"),1);
+            var sliced = sum.slice(0,sum.lastIndexOf("+"));
+            document.getElementById("total").innerHTML = sliced + " = " + total;
+
+            if (isPrime(total))
+            {
+                document.getElementById("prime").innerHTML = "<img src='tick.png' style='width:20px; height:20px; padding-left:10px; float:left;'>";
+            }
+            else
+            {
+                document.getElementById("prime").innerHTML = "<img src='cross.png' style='width:20px; height:20px; padding-left:10px; float:left;'>";
+            }
+        }
+        else {
+            document.getElementById("valid").innerHTML = "<img src='cross.png' style='width:20px; height:20px; padding-left:10px; margin-right:6px; float:left;'> - Input must only contain letters.";
+            document.getElementById("total").innerHTML = "";
+            document.getElementById("prime").innerHTML = "";
+        }
+    }
+    else {
+        document.getElementById("input").innerHTML = "Empty!";
+        document.getElementById("valid").innerHTML = "<img src='cross.png' style='width:20px; height:20px; padding-left:10px; float:left;'>";
+        document.getElementById("total").innerHTML = "";
+        document.getElementById("prime").innerHTML = "";
+    }
+}
+
+function mapToNumber(i)
+{
+    var valueOfInput = 0;
+    valueOfInput = i.charCodeAt(0) - 96;
+    return valueOfInput;
+}
+
+function isPrime(n) {
+    // If n is less than 2 or not an integer then by definition cannot be prime.
+    if (n < 2) {return false}
+    if (n != Math.round(n)) {return false}
+
+    // Now check every integer from 2 to sqroot(n). If any of these divides n exactly, n is NOT prime.
+    for (var i = 2; i <= Math.sqrt(n); i++) {
+        if (n%i == 0) {return false}
+    }
+
+    return true;
+
+}
+</script>
+
+</html>
