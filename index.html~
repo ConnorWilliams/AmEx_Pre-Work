@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>AmEx Assessment Day Coding Pre-Work</title>
     <link rel="stylesheet" href="AmExStyle.css">
-    <link rel="stylesheet" href="ButtonPictogram/style/pictogram-button.css">
+    <link rel="stylesheet" href="ButtonPictogram/ButtonPictogram/style/pictogram-button.css">
 </head>
 
 <body>
